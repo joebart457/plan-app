@@ -1,0 +1,145 @@
+#add-btn {
+    float: right;
+}
+
+:host::ng-deep {
+    #add-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+}
+
+.add-dialog {
+    overflow: visible;
+    position: relative;
+    height: 800px;
+    width: 400px;
+    align-content: center;
+}
+
+
+$primary: #1f7ed0;
+$secondary: #aed3f3;
+$white: #fff;
+$gray: #9b9b9b;
+
+.add-dialog-content {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 20vw;
+  height: 16vh;
+}
+
+.objective-name {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: $white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .objective-name-label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.objective-name-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+
+.objective-name:focus {
+  ~ .objective-name-label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight:700;    
+  }
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, $primary,$secondary);
+  border-image-slice: 1;
+}
+/* reset input */
+.objective-name {
+  &:required,&:invalid { box-shadow:none; }
+}
+
+
+.objective-goal {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0px;
+    background: transparent;
+    transition: border-color 0.2s;
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ .objective-goal-label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 80px;
+    }
+  }
+  
+  .objective-goal-label {
+    position: absolute;
+    top: 60px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+  
+  .objective-goal:focus {
+    ~ .objective-goal-label {
+        position: absolute;
+        top: 60px;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $primary;
+        font-weight:700;    
+    }
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary,$secondary);
+    border-image-slice: 1;
+  }
+  /* reset input */
+  .objective-goal {
+    &:required,&:invalid { box-shadow:none; }
+  }
+  
+  .dialog-content-spacer {
+      height: 20px;
+  }
+
+  .invalid-input-label {
+      color: red;
+  }

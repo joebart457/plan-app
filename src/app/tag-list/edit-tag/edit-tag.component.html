@@ -1,0 +1,9 @@
+<p-panel>
+    <p-header>
+        Edit Tag
+    </p-header>
+    <div>
+        <p-calendar *ngIf="selectedTag" [(ngModel)]="selectedTag.date" [numberOfMonths]="2" selectionMode="range"></p-calendar>
+        <button (click)="displayDate()"></button>
+    </div>
+</p-panel>

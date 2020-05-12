@@ -1,0 +1,15 @@
+#add-btn {
+    float: right;
+}
+
+:host::ng-deep {
+    #add-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+}
+
+.plan-table {
+    height: 80vh !important;
+    overflow-y: auto;
+    padding-left: 0 !important;
+}

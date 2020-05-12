@@ -1,0 +1,8 @@
+:host::ng-deep {
+    .plans-panel-content {
+        height: 100vh !important;
+        width: 90vw;
+        display: flex;
+        justify-content: center;
+    }
+}

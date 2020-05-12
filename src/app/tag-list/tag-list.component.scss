@@ -1,0 +1,30 @@
+:host::ng-deep {
+    .tags-panel-content {
+        height: 100vh !important;
+        width: 90vw;
+        display: flex;
+    }
+
+    .tag-table {
+        height: 60vh !important;
+        overflow: auto;
+        width: 40vw;
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+    }
+    
+    .tag-edit-panel {
+        height: 60vh !important;
+        overflow: auto;
+        width: 40vw;
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+    }
+    .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+}
+
+#add-btn {
+    float: right;
+}

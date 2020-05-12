@@ -1,0 +1,39 @@
+<p-panel>
+    <p-header>Tags</p-header>
+    <div class="tags-panel-content">
+        <p-treeTable [value]="tags"
+                class="tag-table">
+            <ng-template pTemplate="caption">
+                <div style="height: 20px;">
+                    <button pButton
+                            type="button"
+                            id="add-btn"
+                            icon="pi pi-plus"
+                            style="height: 20px; align-content: center;"
+                            label="Add"
+                            class="ui-button-success"
+                            (click)="addTag()">
+                    </button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr>
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                        {{rowData.name}}
+                    </td>
+                    <td>{{rowData.size}}</td>
+                    <td>{{rowData.type}}</td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    <app-edit-tag class="tag-edit-panel" [selectedTag]="selectedTag"></app-edit-tag>
+    </div>
+</p-panel>

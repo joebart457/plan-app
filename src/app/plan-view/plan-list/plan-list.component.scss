@@ -17,6 +17,14 @@
     #edit-btn .ui-button-text {
         transform: translate(0px, -6px);
     }
+
+    .ui-table-thead {
+        margin-right: 0;
+    }
+
+    .ui-table-scrollable-header-box {
+        margin-right: 0 !important;
+    }
 }
 
 .plan-table {

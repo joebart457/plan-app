@@ -42,7 +42,7 @@ export class PlanListComponent implements OnInit {
 
   onAddedPlan(): void {
     let that = this;
-    setTimeout( function(that: any){that.refreshPlans();}, 1000, that); 
+    setTimeout( function(that: any){that.refreshPlans();}, 3000, that); 
   }
 
   onPlanSave(): void {

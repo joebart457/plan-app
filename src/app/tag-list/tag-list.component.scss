@@ -9,12 +9,7 @@
         height: calc(#{$full-height} - #{$panel-titlebar-height});
     }
 
-    .tag-table {
-        padding-left: 2.5vw;
-        padding-right: 2.5vw;
-        height: 80vh;
-        overflow-y: auto;
-    }
+
 
     #add-btn .ui-button-text {
         transform: translate(0px, -6px);

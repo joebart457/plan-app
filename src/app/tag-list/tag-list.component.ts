@@ -4,6 +4,7 @@ import { FileService } from '../shared/services/file.service';
 import { Tag } from '../shared/tag';
 import { SessionService } from '../shared/services/session.service';
 import { Plan } from '../shared/plan';
+import { Objective } from '../shared/objective';
 
 @Component({
   selector: 'app-tag-list',
@@ -57,5 +58,17 @@ export class TagListComponent implements OnInit {
 
   onTagSave() {
     this.refreshTags();
+  }
+
+  getObjectiveString(rowData: any, objective: Objective) {
+    if (rowData.multiMode === 'Percentage') {
+      return `${objective.name}, ${objective.multiModeValue}%`;
+    } else if (rowData.multiMode === 'Set Value for Each') {
+      return `${objective.name}, $${objective.multiModeValue}`;
+    } else if (rowData.multiMode === 'Split Evenly') {
+      return `${objective.name}, $${(rowData.amount / (rowData.objectives.length? rowData.objectives.length: 1)).toFixed(2)}`;
+    } else {
+      return objective.name;
+    }
   }
 }

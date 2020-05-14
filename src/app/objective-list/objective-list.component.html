@@ -26,14 +26,14 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>Name</th>
-                <th>Goal</th>
+                <th class="table-field-content">Name</th>
+                <th class="table-field-content">Goal</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
             <tr>
                 <td class="table-field-content">{{rowData.name}}</td>
-                <td class="table-field-content">{{rowData.goal}}</td>
+                <td class="table-field-content">${{rowData.goal.toFixed(2)}}</td>
             </tr>
         </ng-template> 
     </p-table>

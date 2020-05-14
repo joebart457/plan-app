@@ -21,8 +21,9 @@ export class AddTagComponent implements OnInit {
   public endDate: Date;
   public eventInterval: string;
   public objectives: Objective[] = [];
-
+  public multiMode: string;
   public objectivesList: Objective[] = [];
+  public multiModeOptions: SelectItem[] = [];
   public eventIntervals: SelectItem[] = [];
 
   public errorMessage: string = 'Error';
@@ -30,9 +31,11 @@ export class AddTagComponent implements OnInit {
   constructor(private sessionService: SessionService, private constantsService: ConstantsService) { }
 
   ngOnInit(): void {
-    this.objectivesList = this.sessionService.getObjectives();
+    this.objectivesList = this.sessionService.getObjectives().map(x => x);
     this.eventIntervals = this.constantsService.Tags.DateTypes.list;
+    this.multiModeOptions = this.constantsService.Tags.MultiModes.list;
     this.eventInterval = this.constantsService.Tags.DateTypes.list[0].value;
+    this.multiMode = this.constantsService.Tags.MultiModes.list[0].value;
   }
 
   inputValid(): boolean {
@@ -54,7 +57,7 @@ export class AddTagComponent implements OnInit {
   }
 
   saveTag(): void {
-    let tag = new Tag(this.name, this.amount);
+    let tag = new Tag();
     tag.name = this.name;
     tag.amount = this.amount;
     tag.startDate = new Date(this.startDate);
@@ -63,9 +66,39 @@ export class AddTagComponent implements OnInit {
     tag.endDate.setDate(tag.endDate.getDate() + 1);
     tag.eventInterval = this.eventInterval;
     tag.objectives = this.objectives;
+    tag.multiMode = this.multiMode;
     this.sessionService.addTag(tag);
     this.add.emit(true);
     this.hideDialog(); 
+  }
+
+  multiModeValid() {
+    if (this.multiMode == 'Percentage') {
+      let total = 0;
+      this.objectives.forEach(objective => {
+        total += objective.multiModeValue;
+      });
+      if (total <= 100) {
+        return true;
+      } else {
+        this.errorMessage = 'Percentage cannot exceed 100%';
+        return false;
+
+      }
+    } else if (this.multiMode == 'Set Value for Each') {
+      let total = 0;
+      this.objectives.forEach(objective => {
+        total += objective.multiModeValue;
+      });
+      if (total <= this.amount) {
+        return true;
+      } else {
+        this.errorMessage = 'Amount distributed cannot exceed total tag amount';
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 
   hideDialog(): void {

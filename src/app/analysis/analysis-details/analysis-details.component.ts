@@ -8,9 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AnalysisDetailsComponent implements OnInit {
 
   @Input() resultDetails: any;
+  @Input() objectiveInfo: string = '';
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  getAmountPerOccurrence(rowData: any): number {
+    return rowData.totalAmount/ (rowData.recurrent.length? rowData.recurrent.length: 1);
+  }
 }

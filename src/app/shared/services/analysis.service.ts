@@ -11,7 +11,7 @@ export class AnalysisService {
 
   constructor(private constantsService: ConstantsService) { }
 
-  public analyze(plan: Plan): any {
+  public analyze(plan: Plan, filterZeroContributors: boolean = false): any {
     let results = [];
     if (plan) {
       plan.objectives.forEach(objective => {
@@ -20,53 +20,78 @@ export class AnalysisService {
       plan.tags.map(x=>x).forEach(tag => {
         let refinedStartDate: Date = tag.startDate? tag.startDate > plan.startDate? tag.startDate : plan.startDate : plan.startDate;
         let refinedEndDate: Date = tag.endDate? tag.endDate < plan.endDate? tag.endDate : plan.endDate : plan.endDate;
-        let addedAmount = 0;
+        let totalAmount = 0;
         let recurrent = [];
         if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.Once.value) {
           console.log("EventInterval: Once");
           if (tag.endDate > plan.startDate){
-            addedAmount = tag.amount;
+            totalAmount = tag.amount;
           }
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.Daily.value) {
           console.log('EventInterval: Daily');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 1, this.constantsService.Tags.DateTypes.analysis.Day.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.Weekly.value) {
           console.log('EventInterval: Weekly');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 7, this.constantsService.Tags.DateTypes.analysis.Day.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.BiMonthly.value) {
           console.log('EventInterval: BiMonthly');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 14, this.constantsService.Tags.DateTypes.analysis.Day.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.Monthly.value) {
           console.log('EventInterval: Monthly');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 1, this.constantsService.Tags.DateTypes.analysis.Month.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.BiAnnually.value) {
           console.log('EventInterval: BiAnnually');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 6, this.constantsService.Tags.DateTypes.analysis.Month.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         } else if (tag.eventInterval === this.constantsService.Tags.DateTypes.labels.Annually.value) {
           console.log('EventInterval: Annually');
           recurrent = this.recurringDatesCount(refinedStartDate, refinedEndDate, 1, this.constantsService.Tags.DateTypes.analysis.FullYear.value, false);
-          addedAmount = tag.amount * recurrent.length;
+          totalAmount = tag.amount * recurrent.length;
         }
 
-        console.log("Added amount is "+addedAmount);
+        console.log("Total amount is "+totalAmount);
+        let determineValuesByObjectiveFlag: boolean = false;
+        let addedAmount: number;
+        if (tag.multiMode === this.constantsService.Tags.MultiModes.labels.SplitEvenly.value) {
+          addedAmount = totalAmount / (tag.objectives.length? tag.objectives.length: 1);
+        } else  if (tag.multiMode === this.constantsService.Tags.MultiModes.labels.AddToAll.value) {
+          addedAmount = totalAmount;
+        } else {
+          determineValuesByObjectiveFlag = true;
+        }
         tag.objectives.forEach( objective => {
-          const objIndex = results.findIndex(x => x.name === objective.name);
-          if (objIndex < -1) {
-            console.log("creating new result");
-            results.push({name: objective.name, goal: objective.goal, result: addedAmount, warn: true, 
-              details: [{name: tag.name, amount: tag.amount, totalAmount: addedAmount, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)}]}
-            );
-          } else {
-            console.log("adding to objective: ");
-            console.log(results[objIndex]);
-            results[objIndex].result += addedAmount;
-            results[objIndex].details.push({name: tag.name, amount: tag.amount, totalAmount: addedAmount, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)});
+
+          if (determineValuesByObjectiveFlag) {
+            if (tag.multiMode === this.constantsService.Tags.MultiModes.labels.Percentage.value) {
+              addedAmount = totalAmount * (objective.multiModeValue/100);
+            } else if (tag.multiMode === this.constantsService.Tags.MultiModes.labels.SetValue.value) {
+              addedAmount = objective.multiModeValue;
+            }else {
+              console.warn('Undefined option encountered when running analysis: '+tag.multiMode);
+              addedAmount = 0;
+            }
           }
+          
+          if (!(addedAmount === 0 && filterZeroContributors)){
+            const objIndex = results.findIndex(x => x.name === objective.name);
+          
+            if (objIndex < -1) {
+              console.log("creating new result");
+              results.push({name: objective.name, goal: objective.goal, result: addedAmount, warn: true, 
+                details: [{name: tag.name, amount: tag.amount, totalAmount: addedAmount, eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)}]}
+              );
+            } else {
+              console.log("adding to objective: ");
+              console.log(results[objIndex]);
+              results[objIndex].result += addedAmount;
+              results[objIndex].details.push({name: tag.name, amount: tag.amount, totalAmount: addedAmount, eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)});
+            }
+          }
+         
         });
       });
       return results;

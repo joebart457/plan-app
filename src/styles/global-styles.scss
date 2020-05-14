@@ -1,5 +1,5 @@
 $frame-height: 40px;
-$navbar-width: 80px;
+$navbar-width: 100px;
 $full-height: calc(100vh - #{$frame-height});
 $full-width: calc(100vw - #{$navbar-width});
 $panel-titlebar-height: 37px;
@@ -11,5 +11,5 @@ $table-height: 80vh;
     width: 100%;
 }
 
-$tag-dialog-width: 440px;
-$tag-dialog-height: 600px;
+$tag-dialog-width: 600px;
+$tag-dialog-height: 800px;

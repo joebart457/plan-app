@@ -26,13 +26,13 @@
             </button>
         </div>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="header" [style]="{'margin-right': '0px'}">
         <tr>
             <th style="width: 3em"></th>
-            <th>Name</th>
-            <th>FilePath</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th class="table-field-content">Name</th>
+            <th class="table-field-content">FilePath</th>
+            <th class="table-field-content">Start Date</th>
+            <th class="table-field-content">End Date</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>

@@ -6,9 +6,7 @@ export class Tag {
     startDate: Date;
     endDate: Date;
     objectives: Objective[] = [];
-    eventInterval: any = {label: 'Occurs Once', value: 'Occurs Once'};
-    constructor(name: string, amount: number) {
-        this.name = name;    
-        this.amount = amount;
-    }
+    eventInterval: string = 'Occurs Once'
+    multiMode: string = 'Add to All';
+    constructor() {}
 }

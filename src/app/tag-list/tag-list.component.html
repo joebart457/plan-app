@@ -41,12 +41,13 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3em"></th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Objective(s)</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Event Interval</th>
+                <th class="table-field-content">Name</th>
+                <th class="table-field-content">Amount</th>
+                <th class="table-field-content">MultiMode</th>
+                <th class="table-field-content">Objective(s)</th>
+                <th class="table-field-content">Start Date</th>
+                <th class="table-field-content">End Date</th>
+                <th class="table-field-content">Event Interval</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
@@ -55,9 +56,10 @@
                     <p-tableRadioButton [value]="rowData" [disabled]="showEditTag"></p-tableRadioButton>
                 </td>
                 <td class="table-field-content">{{rowData.name}}</td>
-                <td class="table-field-content">{{rowData.amount}}</td>
+                <td class="table-field-content">${{rowData.amount.toFixed(2)}}</td>
+                <td class="table-field-content">{{rowData.multiMode}}</td>
                 <td class="table-field-content">
-                    <p class="table-field-content" *ngFor="let objective of rowData.objectives">{{objective.name}}</p>
+                    <p class="table-field-content" *ngFor="let objective of rowData.objectives">{{getObjectiveString(rowData, objective)}}</p>
                 </td>
                 <td class="table-field-content">{{rowData.startDate}}</td>
                 <td class="table-field-content">{{rowData.endDate}}</td>

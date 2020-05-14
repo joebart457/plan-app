@@ -46,8 +46,6 @@ export class PlanEditComponent implements OnInit {
 
   savePlan(): void {
     if (this.plan) {
-      console.log('StartDate');
-      console.log(this.startDate);
       this.plan.name = this.name;
       this.plan.startDate = new Date(this.startDate);
       if (this.startDateChanged){

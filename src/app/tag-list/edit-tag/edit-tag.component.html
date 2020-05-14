@@ -20,6 +20,8 @@
     <div class="dialog-content-spacer"></div>
     <p-dropdown id="eventIntervalDropdown" appendTo="body" [style]="{width: '100%'}" [options]="eventIntervals" [(ngModel)]="eventInterval"></p-dropdown>
     <div class="dialog-content-spacer"></div>
+    <p-dropdown id="multiModeDropdown" appendTo="body" [style]="{width: '100%'}" [options]="multiModeOptions" [(ngModel)]="multiMode"></p-dropdown>
+    <div class="dialog-content-spacer"></div>
     <p-table [value]="objectivesList"
         class="objective-table"
         selectionMode="multiple" 
@@ -34,6 +36,7 @@
                 </th>
                 <th>Name</th>
                 <th>Goal</th>
+                <th *ngIf="multiMode === 'Percentage' || multiMode === 'Set Value for Each'">MultiMode Value</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
@@ -43,6 +46,9 @@
                 </td>
                 <td class="table-field-content">{{rowData.name}}</td>
                 <td class="table-field-content">{{rowData.goal}}</td>
+                <td *ngIf="multiMode === 'Percentage' || multiMode === 'Set Value for Each'" class="table-field-content">
+                    <input type="number" [(ngModel)]="rowData.multiModeValue" style="width: 100%;">
+                </td>
             </tr>
         </ng-template>
     </p-table>
@@ -66,7 +72,7 @@
     </div>
 </div>
 <div class="ui-g ui-g-8">
-    <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
+    <p *ngIf="!inputValid() || !multiModeValid()" class="invalid-input-label">{{ errorMessage }}</p>
 </div>
 </p-footer>
 </p-dialog>

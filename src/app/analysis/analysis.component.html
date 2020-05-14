@@ -23,10 +23,10 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3em"></th>
-                <th>Name</th>
-                <th>Target</th>
-                <th>Result</th>
-                <th>Status</th>
+                <th class="table-field-content">Name</th>
+                <th class="table-field-content">Target</th>
+                <th class="table-field-content">Result</th>
+                <th class="table-field-content">Status</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
@@ -35,12 +35,12 @@
                     <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
                 </td>
                 <td class="table-field-content">{{rowData.name}}</td>
-                <td class="table-field-content">{{rowData.goal}}</td>
-                <td class="table-field-content">{{rowData.result}}</td>
+                <td class="table-field-content">${{rowData.goal.toFixed(2)}}</td>
+                <td class="table-field-content">${{rowData.result.toFixed(2)}}</td>
                 <td class="table-field-content">{{rowData.warn}}</td>
             </tr>
         </ng-template>
     </p-table>
     <div style="height: 10vh;"></div>
-    <app-analysis-details [resultDetails]="selectedResult? selectedResult.details : null"></app-analysis-details>
+    <app-analysis-details [resultDetails]="selectedResult? selectedResult.details : null" [objectiveInfo]="selectedResult? selectedResult.name : null"></app-analysis-details>
 </p-panel>

@@ -14,12 +14,12 @@ export class NavigationComponent implements OnInit {
   constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.basicItems.push({label:'', icon: 'pi pi-plus', routerLink: ['/plan']});
+    this.basicItems.push({label:'Plans', icon: 'pi pi-list', routerLink: ['/plan']});
 
-    this.fullItems.push({label:'', icon: 'pi pi-plus', routerLink: ['/plan']});
-    this.fullItems.push({label:'', icon: 'pi pi-tags', routerLink: ['/tag-list']});
-    this.fullItems.push({label:'', icon: 'pi pi-compass', routerLink: ['/objective']});
-    this.fullItems.push({label:'', icon: 'pi pi-chart-bar', routerLink: ['/analysis']});
+    this.fullItems.push({label:'Plans', icon: 'pi pi-list', routerLink: ['/plan']});
+    this.fullItems.push({label:'Tags', icon: 'pi pi-tags', routerLink: ['/tag-list']});
+    this.fullItems.push({label:'Goals', icon: 'pi pi-compass', routerLink: ['/objective']});
+    this.fullItems.push({label:'Test', icon: 'pi pi-chart-bar', routerLink: ['/analysis']});
   }
 
   getMenuItems(): MenuItem[] {

@@ -51,14 +51,18 @@ export class PlanAddComponent implements OnInit {
       plan.startDate.setDate(plan.startDate.getDate() + 1);
       plan.endDate = new Date(this.endDate);
       plan.endDate.setDate(plan.endDate.getDate() + 1);
-      this.planService.savePlan(plan);
-      this.add.emit(true);
-      this.hideDialog();
+      if (this.planService.savePlan(plan)) {
+        this.add.emit(true);
+        this.hideDialog();
+      } else {
+        alert(`Unable to save plan. File '${plan.filepath}' may be open by another process.`)
+      }
     }
   }
 
   onNameChange() {
-    this.filepath = this.name+'.json';
+    let filename = this.name.replace(/[/\\?%*:'|"<>]/g, '-');
+    this.filepath = filename+'.json';
   }
 
   hideDialog(): void {

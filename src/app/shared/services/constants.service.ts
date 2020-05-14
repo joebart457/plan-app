@@ -31,6 +31,20 @@ export class ConstantsService {
             FullYear: {label: 'FullYear', value: 'FullYear'},
         }
     },
+    MultiModes: {
+      list: [
+        {label: 'Split Evenly', value: 'Split Evenly'},
+        {label: 'Add to All', value: 'Add to All'},
+        {label: 'Percentage', value: 'Percentage'},
+        {label: 'Set Value for Each', value: 'Set Value for Each'},
+      ],
+      labels: {
+        SplitEvenly: {label: 'Split Evenly', value: 'Split Evenly'},
+        AddToAll:{label: 'Add to All', value: 'Add to All'},
+        Percentage: {label: 'Percentage', value: 'Percentage'},
+        SetValue: {label: 'Set Value for Each', value: 'Set Value for Each'},
+      },
+    }
 };
 
   constructor() { }

@@ -10,28 +10,55 @@ import { PlanService } from 'src/app/shared/services/plan.service';
 export class PlanAddComponent implements OnInit {
 
   @Input() showDialog: boolean = false;
-  @Input() selectedPlan: Plan = null;
-  @Input() isNew: boolean = false;
   @Output() hide: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() add: EventEmitter<boolean> = new EventEmitter<boolean>();
   public name: string = '';
   public filepath: string = '';
+  public startDate: Date;
+  public endDate: Date;
   public errorMessage: string = 'Error';
+  public finalCheckFailed: boolean = false;
   constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
   }
 
   inputValid(): boolean {
-    let plans = this.planService.getAvailablePlans();
-    if (plans.findIndex(x => x.name === this.name) >= 0){
-      this.errorMessage = 'Plan with name '+this.name+' already exists';
+    if (this.startDate && this.endDate && this.name !== '') {
+      return true;
+    } else {
+      this.errorMessage = 'All fields required';
       return false;
     }
+  }
+
+  finalCheck(): boolean {
+    let plans = this.planService.getAvailablePlans();
+    if (plans.findIndex(x => x.name === this.name) >= 0){
+      this.errorMessage = 'Duplicate plan name';
+      this.finalCheckFailed = true;
+      return false;
+    }
+    this.finalCheckFailed = false;
     return true;
   }
 
   addPlan(): void {
+    if (this.finalCheck()) {
+      let plan = new Plan(this.name);
+      plan.filepath = this.filepath;
+      plan.startDate = new Date(this.startDate);
+      plan.startDate.setDate(plan.startDate.getDate() + 1);
+      plan.endDate = new Date(this.endDate);
+      plan.endDate.setDate(plan.endDate.getDate() + 1);
+      this.planService.savePlan(plan);
+      this.add.emit(true);
+      this.hideDialog();
+    }
+  }
 
+  onNameChange() {
+    this.filepath = this.name+'.json';
   }
 
   hideDialog(): void {

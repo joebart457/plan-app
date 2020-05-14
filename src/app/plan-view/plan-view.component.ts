@@ -14,10 +14,4 @@ export class PlanViewComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  handleAdd(event: any): void {
-    console.log(event);
-    this.newPlan = true;
-    this.selectedPlan = new Plan('');
-  }
 }

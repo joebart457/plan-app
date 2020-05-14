@@ -1,18 +1,8 @@
-<div style="display: flex; align-content: space-around;">
-    <p-panel>
+    <p-panel id="planView">
         <p-header>
             Plans
         </p-header>
         <div class="plans-panel-content">
-            <div style="width: 40vw;">
-                <app-plan-list (add)="handleAdd($event)"></app-plan-list>
-            </div>
-            <div style="width: 4vw;"></div>
-            <div style="width: 40vw;">
-                <app-plan-add [isNew]="newPlan"
-                            [selectedPlan]="selectedPlan">
-                </app-plan-add>
-            </div>
+            <app-plan-list></app-plan-list>   
         </div>
     </p-panel>
-</div>

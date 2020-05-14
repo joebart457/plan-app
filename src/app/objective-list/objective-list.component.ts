@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Objective } from '../shared/objective';
 import { SessionService } from '../shared/services/session.service';
+import { Plan } from '../shared/plan';
 
 @Component({
   selector: 'app-objective-list',
@@ -14,9 +15,11 @@ export class ObjectiveListComponent implements OnInit {
   public objectiveName: string = '';
   public objectiveGoal: number = 0;
   public errorMessage: string = '';
+  public plan: Plan;
   constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
+    this.plan = this.sessionService.getCurrentPlan();
     this.refreshObjectivesList();
   }
 
@@ -25,17 +28,19 @@ export class ObjectiveListComponent implements OnInit {
   }
   showDialog(): void {
     this.showAddDialog = true;
-    console.log("event triggered");
   }
 
   hideDialog(): void {
     this.showAddDialog = false;
-    console.log("hiding");
   }
 
   inputValid(): boolean {
     if (this.objectives.findIndex(x => x.name === this.objectiveName) < 0) {
-      return true;
+      if (this.objectiveName !== ''){
+        return true;
+      }
+      this.errorMessage = 'Objective must have name';
+      return false;
     } else {
       this.errorMessage = 'Name in use';
       return false;
@@ -45,5 +50,6 @@ export class ObjectiveListComponent implements OnInit {
   addObjective(): void {
     this.sessionService.addObjective(new Objective(this.objectiveName, this.objectiveGoal));
     this.refreshObjectivesList();
+    this.hideDialog();
   }
 }

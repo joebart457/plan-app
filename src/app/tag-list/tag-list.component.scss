@@ -1,30 +1,43 @@
+@import '../../styles/global-styles.scss';
+
 :host::ng-deep {
-    .tags-panel-content {
-        height: 100vh !important;
-        width: 90vw;
-        display: flex;
+    #tagPanel.tags-main-panel .ui-panel {
+        height: $full-height !important;
+        width: $full-width;
+    }
+    #tagPanel .ui-panel-content-wrapper .ui-panel-content {
+        height: calc(#{$full-height} - #{$panel-titlebar-height});
     }
 
     .tag-table {
-        height: 60vh !important;
-        overflow: auto;
-        width: 40vw;
         padding-left: 2.5vw;
         padding-right: 2.5vw;
+        height: 80vh;
+        overflow-y: auto;
     }
-    
-    .tag-edit-panel {
-        height: 60vh !important;
-        overflow: auto;
-        width: 40vw;
-        padding-left: 2.5vw;
-        padding-right: 2.5vw;
-    }
-    .ui-button-text {
+
+    #add-btn .ui-button-text {
         transform: translate(0px, -6px);
     }
+    #edit-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+    #delete-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+    
 }
 
 #add-btn {
-    float: right;
+    position: absolute;
+    right: 10px;
 }
+#edit-btn {
+    position: absolute;
+    right: 100px;
+}
+#delete-btn {
+    position: absolute;
+    right: 190px;
+}
+

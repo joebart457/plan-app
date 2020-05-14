@@ -1,54 +1,75 @@
-<p-table [value]="objectives"
-    class="objective-table">
-    <ng-template pTemplate="caption">
-        <div style="height: 20px;">
-            <button pButton
-                    type="button"
-                    id="add-btn"
-                    icon="pi pi-plus"
-                    style="height: 20px; align-content: center;"
-                    label="Add"
-                    class="ui-button-success"
-                    (click)="showDialog()">
-            </button>
+<p-panel id="objectivesPanel">
+    <p-header>
+        <div *ngIf="plan">
+            Objectives - {{plan.name}}
         </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Goal</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr>
-            <td>{{rowData.name}}</td>
-            <td>{{rowData.goal}}</td>
-        </tr>
-    </ng-template> 
-</p-table>
+        <div *ngIf="!plan">
+            Objectives - n/a
+        </div>
+    </p-header>
+    <p-table [value]="objectives"
+        class="objective-table"
+        [scrollable]="true"
+        scrollHeight="80vh">
+        <ng-template pTemplate="caption">
+            <div style="height: 20px;">
+                <button pButton
+                        type="button"
+                        id="add-btn"
+                        icon="pi pi-plus"
+                        style="height: 20px; align-content: center;"
+                        label="Add"
+                        class="ui-button-success"
+                        (click)="showDialog()">
+                </button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Goal</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td class="table-field-content">{{rowData.name}}</td>
+                <td class="table-field-content">{{rowData.goal}}</td>
+            </tr>
+        </ng-template> 
+    </p-table>
+</p-panel>
 <p-dialog class="add-dialog"
           [(visible)]="showAddDialog"
           [closable]="true"
           (hide)="hideDialog()">
     <p-header>Add Objective</p-header>
     <div class="add-dialog-content">
-        <input type="text" class="objective-name" placeholder="Name" name="name" id='name' [value]="objectiveName"/>
+        <input type="text" class="objective-name" placeholder="Name" name="name" id='name' [(ngModel)]="objectiveName"/>
         <label for="name" class="objective-name-label">Name</label>
         <div class="dialog-content-spacer"></div>
-        <input type="number" class="objective-goal" placeholder="Goal" name="goal" id='goal' [value]="objectiveGoal"/>
+        <input type="number" class="objective-goal" placeholder="Goal" name="goal" id='goal' [(ngModel)]="objectiveGoal"/>
         <label for="goal" class="objective-goal-label">Goal</label>
       </div>
     <p-footer>
-        <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
-        <button pButton
-            *ngIf="inputValid()"
-            type="button"
-            label="Create"
-            class="ui-button-success"
-            (click)="addObjective()"></button>
-        <button pButton
-            type="button"
-            label="Cancel"
-            (click)="hideDialog()"></button>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <button pButton
+                    [disabled]="!inputValid()"
+                    type="button"
+                    label="Create"
+                    class="ui-button-success"
+                    (click)="addObjective()"></button>
+            </div>
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4">
+                <button pButton
+                    type="button"
+                    label="Cancel"
+                    (click)="hideDialog()"></button>
+            </div>
+        </div>
+        <div class="ui-g ui-g-12">
+            <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
+        </div>
     </p-footer>
 </p-dialog>

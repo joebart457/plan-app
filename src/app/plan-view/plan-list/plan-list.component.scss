@@ -1,9 +1,20 @@
+@import '../../../styles/global-styles.scss';
+
 #add-btn {
-    float: right;
+    position: absolute;
+    right: 10px;
 }
+#edit-btn {
+    position: absolute;
+    right: 100px;
+}
+
 
 :host::ng-deep {
     #add-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+    #edit-btn .ui-button-text {
         transform: translate(0px, -6px);
     }
 }

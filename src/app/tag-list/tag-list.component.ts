@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {TreeNode} from 'primeng/api';
 import { FileService } from '../shared/services/file.service';
 import { Tag } from '../shared/tag';
+import { SessionService } from '../shared/services/session.service';
+import { Plan } from '../shared/plan';
 
 @Component({
   selector: 'app-tag-list',
@@ -10,82 +12,50 @@ import { Tag } from '../shared/tag';
 })
 export class TagListComponent implements OnInit {
 
-
-  public tags: TreeNode[] = [];
+  public showAddTag: boolean = false;
+  public showEditTag: boolean = false;
+  public plan: Plan;
+  public tags: Tag[] = [];
   public selectedTag: Tag;
-  constructor(private fileService: FileService) { }
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.fileService.readDirectory('./savings-plans');
-    this.tags.push(
-      {
-        "data":{
-            "name":"Pictures",
-            "size":"150kb",
-            "type":"Folder"
-        },
-        "children":[
-            {
-                "data":{
-                    "name":"barcelona.jpg",
-                    "size":"90kb",
-                    "type":"Picture"
-                }
-            },
-            {
-                "data":{
-                    "name":"primeui.png",
-                    "size":"30kb",
-                    "type":"Picture"
-                }
-            },
-            {
-                "data":{
-                    "name":"optimus.jpg",
-                    "size":"30kb",
-                    "type":"Picture"
-                }
-            }
-        ]
-    }
-    );
-    this.tags.push(
-      {
-        "data":{
-            "name":"Pictures",
-            "size":"150kb",
-            "type":"Folder"
-        },
-        "children":[
-            {
-                "data":{
-                    "name":"barcelona.jpg",
-                    "size":"90kb",
-                    "type":"Picture"
-                }
-            },
-            {
-                "data":{
-                    "name":"primeui.png",
-                    "size":"30kb",
-                    "type":"Picture"
-                }
-            },
-            {
-                "data":{
-                    "name":"optimus.jpg",
-                    "size":"30kb",
-                    "type":"Picture"
-                }
-            }
-        ]
-    }
-    );
-    
+    this.refreshTags();
   }
 
-  addTag() {
-    this.selectedTag = new Tag(0, 'My Tag')
+
+  refreshTags() {
+    this.plan = this.sessionService.getCurrentPlan();
+    this.tags = this.plan.tags;
   }
 
+  handleAdd(): void {
+    this.showAddTag = true;
+  }
+
+  handleEdit(): void {
+    this.showEditTag = true;
+  }
+
+  handleDelete(): void {
+    this.sessionService.deleteTag(this.selectedTag);
+    this.refreshTags();
+    this.selectedTag = null;
+  }
+
+  closeAddDialog(): void {
+    this.showAddTag = false;
+  }
+
+  closeEditDialog(): void {
+    this.showEditTag = false;
+  }
+
+  onTagAdd() {
+    this.refreshTags();
+  }
+
+  onTagSave() {
+    this.refreshTags();
+  }
 }

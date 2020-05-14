@@ -1,0 +1,15 @@
+$frame-height: 40px;
+$navbar-width: 80px;
+$full-height: calc(100vh - #{$frame-height});
+$full-width: calc(100vw - #{$navbar-width});
+$panel-titlebar-height: 37px;
+
+$table-height: 80vh;
+.table-field-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+$tag-dialog-width: 440px;
+$tag-dialog-height: 600px;

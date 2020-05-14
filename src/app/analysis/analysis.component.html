@@ -1,0 +1,46 @@
+<p-panel id="analysisPanel" class="analysis-panel">
+    <p-header>Run Analysis On {{plan? plan.name: ''}}</p-header>
+    <p-table id="resultsTable" 
+            [value]="results"
+            selectionMode="single"
+            [(selection)]="selectedResult"
+            [scrollable]="true"
+            scrollHeight="30vh"
+            [style]="{width: '100%', height: '30vh'}">
+            <ng-template pTemplate="caption">
+                <div style="height: 20px;">
+                    <button pButton
+                            type="button"
+                            id="run-btn"
+                            icon="pi pi-play"
+                            style="height: 20px; align-content: center;"
+                            label="Run"
+                            class="ui-button-success"
+                            (click)="handleRun()">
+                    </button>
+                </div>
+            </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3em"></th>
+                <th>Name</th>
+                <th>Target</th>
+                <th>Result</th>
+                <th>Status</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr [ngClass]="getRowStyles(rowData)">
+                <td style="width: 3em">
+                    <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+                </td>
+                <td class="table-field-content">{{rowData.name}}</td>
+                <td class="table-field-content">{{rowData.goal}}</td>
+                <td class="table-field-content">{{rowData.result}}</td>
+                <td class="table-field-content">{{rowData.warn}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div style="height: 10vh;"></div>
+    <app-analysis-details [resultDetails]="selectedResult? selectedResult.details : null"></app-analysis-details>
+</p-panel>

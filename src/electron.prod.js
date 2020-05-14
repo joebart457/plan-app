@@ -5,6 +5,7 @@ const url = require('url');
 console.log("This is a test");
 let win;
 
+
 const createWindow = () => {
     
         win = new BrowserWindow({
@@ -16,6 +17,7 @@ const createWindow = () => {
             icon: path.join(__dirname, 'favicon.ico'),
             title: 'App Loading...',
             darkTheme: true,
+            frame: false
         });
 
         win.loadURL(url.format({

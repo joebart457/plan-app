@@ -1,7 +1,20 @@
 <p-table [value]="plans"
-    class="plan-table">
+    class="plan-table"
+    selectionMode="single" 
+    [(selection)]="selectedPlan"
+    [scrollable]="true"
+    scrollHeight="80vh">
     <ng-template pTemplate="caption">
         <div style="height: 20px;">
+            <button pButton
+                    type="button"
+                    id="edit-btn"
+                    icon="pi pi-user-edit"
+                    style="height: 20px; align-content: center;"
+                    label="Edit"
+                    class="ui-button-warning"
+                    [disabled]="!selectedPlan"
+                    (click)="handleEdit()"></button>
             <button pButton
                     type="button"
                     id="add-btn"
@@ -15,19 +28,24 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
+            <th style="width: 3em"></th>
             <th>Name</th>
             <th>FilePath</th>
             <th>Start Date</th>
             <th>End Date</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template pTemplate="body" let-rowData>
         <tr>
-            <td>{{rowData.name}}</td>
-            <td>{{rowData.filepath}}</td>
-            <td>{{rowData.startDate}}</td>
-            <td>{{rowData.endDate}}</td>
+            <td style="width: 3em">
+                <p-tableRadioButton [value]="rowData" [disabled]="showEditPlan"></p-tableRadioButton>
+            </td>
+            <td class="table-field-content">{{rowData.name}}</td>
+            <td class="table-field-content">{{rowData.filepath}}</td>
+            <td class="table-field-content">{{rowData.startDate}}</td>
+            <td class="table-field-content">{{rowData.endDate}}</td>
         </tr>
     </ng-template>
 </p-table>
-<app-plan-add [showDialog]="showAddPlan" (hide)="handleClose()"></app-plan-add>
+<app-plan-add [showDialog]="showAddPlan" (add)="onAddedPlan()" (hide)="closeAddDialog()"></app-plan-add>
+<app-plan-edit [(planSelection)]="selectedPlan" [showDialog]="showEditPlan" (save)="onPlanSave()" (hide)="closeEditDialog()"></app-plan-edit>

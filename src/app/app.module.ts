@@ -14,6 +14,9 @@ import {CalendarModule} from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import {SpinnerModule} from 'primeng/spinner';
+import {DropdownModule} from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 import { AppComponent } from './app.component';
 import { TerminalComponent } from './terminal/terminal.component';
@@ -27,6 +30,12 @@ import { PlanViewComponent } from './plan-view/plan-view.component';
 import { PlanListComponent } from './plan-view/plan-list/plan-list.component';
 import { PlanAddComponent } from './plan-view/plan-add/plan-add.component';
 import { ObjectiveListComponent } from './objective-list/objective-list.component';
+import { PlanEditComponent } from './plan-view/plan-edit/plan-edit.component';
+import { AnalysisComponent } from './analysis/analysis.component';
+import { PlanSelectorComponent } from './plan-selector/plan-selector.component';
+import { AddTagComponent } from './tag-list/add-tag/add-tag.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AnalysisDetailsComponent } from './analysis/analysis-details/analysis-details.component';
 
 
 @NgModule({
@@ -39,7 +48,13 @@ import { ObjectiveListComponent } from './objective-list/objective-list.componen
     PlanViewComponent,
     PlanListComponent,
     PlanAddComponent,
-    ObjectiveListComponent
+    ObjectiveListComponent,
+    PlanEditComponent,
+    AnalysisComponent,
+    PlanSelectorComponent,
+    AddTagComponent,
+    LandingPageComponent,
+    AnalysisDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +71,9 @@ import { ObjectiveListComponent } from './objective-list/objective-list.componen
     FormsModule,
     DialogModule,
     SpinnerModule,
+    DropdownModule,
+    RadioButtonModule,
+    ScrollPanelModule,
   ],
   providers: [
     TagService,

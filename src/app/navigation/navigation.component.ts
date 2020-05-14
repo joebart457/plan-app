@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api/menuitem';
+import { SessionService } from '../shared/services/session.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,13 +9,24 @@ import { MenuItem } from 'primeng/api/menuitem';
 })
 export class NavigationComponent implements OnInit {
 
-  public menuItems: MenuItem[] = [];
-  constructor() { }
+  public basicItems: MenuItem[] = [];
+  public fullItems: MenuItem[] = [];
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.menuItems.push({label:'', icon: 'pi pi-list', routerLink: ['/tag-list']});
-    this.menuItems.push({label:'', icon: 'pi pi-plus', routerLink: ['/plan']});
-    this.menuItems.push({label:'', icon: 'pi pi-compass', routerLink: ['/objective']});
+    this.basicItems.push({label:'', icon: 'pi pi-plus', routerLink: ['/plan']});
+
+    this.fullItems.push({label:'', icon: 'pi pi-plus', routerLink: ['/plan']});
+    this.fullItems.push({label:'', icon: 'pi pi-tags', routerLink: ['/tag-list']});
+    this.fullItems.push({label:'', icon: 'pi pi-compass', routerLink: ['/objective']});
+    this.fullItems.push({label:'', icon: 'pi pi-chart-bar', routerLink: ['/analysis']});
+  }
+
+  getMenuItems(): MenuItem[] {
+    if(this.sessionService.getCurrentPlan()) {
+      return this.fullItems;
+    }
+    return this.basicItems;
   }
 
 }

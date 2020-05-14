@@ -1,32 +1,43 @@
 
 <p-dialog class="add-dialog"
-        [(visible)]="showDialog"
+        [visible]="showDialog"
         [contentStyle]="{'overflow': 'visible'}"
-        [closable]="true"
+        [closable]="false"
         (hide)="hideDialog()">
     <p-header>Create New Plan</p-header>
     <div class="add-dialog-content">
-        <input type="text" class="name-input" placeholder="Name" name="name" id='name' [value]="name"/>
+        <input type="text" class="name-input" placeholder="Name" name="name" id='name' [(ngModel)]="name" (change)="onNameChange()"/>
         <label for="name" class="name-label">Name</label>
         <div class="dialog-content-spacer"></div>
-        <input class="filepath-input" placeholder="Filepath" name="filepath" id='filepath' [value]="filepath"/>
-        <label for="filepath" class="filepath-label">Filepath</label>
-        <input type="text" id="startDate" placeholder="Start" class="start-date-input" onfocus="(this.type='date')" onblur="(this.type='text')">
+        <input class="filepath-input" placeholder="Filename" name="filepath" id='filepath' [value]="filepath" [disabled]="true"/>
+        <label for="filepath" class="filepath-label">Filename</label>
+        <div class="dialog-content-spacer"></div>
+        <input type="text" id="startDate" placeholder="Start" class="start-date-input" type="date" [(ngModel)]="startDate">
         <label for="startDate" class="start-date-label">Start</label>
-        <p-calendar id="endDate" class="end-date-input"></p-calendar>
+        <div class="dialog-content-spacer"></div>
+        <input type="text" id="endDate" placeholder="End" class="end-date-input" type="date" [(ngModel)]="endDate">
         <label for="endDate" class="end-date-label">End</label>
     </div>
     <p-footer>
-        <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
-        <button pButton
-            *ngIf="inputValid()"
-            type="button"
-            label="Create"
-            class="ui-button-success"
-            (click)="addPlan()"></button>
-        <button pButton
-            type="button"
-            label="Cancel"
-            (click)="hideDialog()"></button>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <button pButton
+                    [disabled]="!inputValid()"
+                    type="button"
+                    label="Create"
+                    class="ui-button-success"
+                    (click)="addPlan()"></button>
+            </div>
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4">
+                <button pButton
+                    type="button"
+                    label="Cancel"
+                    (click)="hideDialog()"></button>
+            </div>
+        </div>
+        <div class="ui-g ui-g-8">
+            <p *ngIf="!inputValid() || finalCheckFailed" class="invalid-input-label">{{ errorMessage }}</p>
+        </div>
     </p-footer>
 </p-dialog>

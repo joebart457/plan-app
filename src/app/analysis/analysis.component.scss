@@ -1,0 +1,39 @@
+@import '../../styles/global-styles.scss';
+
+:host::ng-deep {
+    #analysisPanel.analysis-panel .ui-panel {
+        height: $full-height;
+        width: $full-width;
+    }
+    #analysisPanel .ui-panel-content-wrapper .ui-panel-content {
+        height: calc(#{$full-height} - #{$panel-titlebar-height});
+        justify-content: center;
+    }
+
+    #run-btn .ui-button-text {
+        transform: translate(0px, -6px);
+    }
+    
+}
+
+#run-btn {
+    position: absolute;
+    right: 10px;
+}
+
+.result-row-success {
+    background-color: green !important;
+}
+.result-row-success:hover {
+    background-color: rgb(49, 236, 43) !important;
+    color: black;
+}
+
+.result-row-warn {
+    background-color: rgb(187, 160, 5) !important;
+}
+
+.result-row-warn:hover {
+    background-color: yellow !important;
+    color: black;
+}

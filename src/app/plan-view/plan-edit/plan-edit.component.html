@@ -1,0 +1,43 @@
+
+<p-dialog class="edit-dialog"
+    [visible]="showDialog"
+    [contentStyle]="{'overflow': 'visible'}"
+    [closable]="false"
+    (hide)="hideDialog()">
+    <p-header>Edit Plan</p-header>
+    <div class="edit-dialog-content">
+        <input type="text" class="name-input" placeholder="Name" name="name" id='name' [(ngModel)]="name"/>
+        <label for="name" class="name-label">Name</label>
+        <div class="dialog-content-spacer"></div>
+        <input class="filepath-input" placeholder="Filename" name="filepath" id='filepath' [value]="filepath" [disabled]="true"/>
+        <label for="filepath" class="filepath-label">Filename</label>
+        <div class="dialog-content-spacer"></div>
+        <input type="text" id="startDate" placeholder="Start" class="start-date-input" type="date" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="startDate = $event; startDateChanged = true;">
+        <label for="startDate" class="start-date-label">Start</label>
+        <div class="dialog-content-spacer"></div>
+        <input type="text" id="endDate" placeholder="End" class="end-date-input" type="date" [ngModel]="endDate | date:'yyyy-MM-dd'" (ngModelChange)="endDate = $event; endDateChanged = true;">
+        <label for="endDate" class="end-date-label">End</label>
+    </div>
+    <p-footer>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <button pButton
+                [disabled]="!inputValid()"
+                type="button"
+                label="Save"
+                class="ui-button-success"
+                (click)="savePlan()"></button>
+        </div>
+        <div class="ui-g-4"></div>
+        <div class="ui-g-4">
+            <button pButton
+                type="button"
+                label="Cancel"
+                (click)="hideDialog()"></button>
+        </div>
+    </div>
+    <div class="ui-g ui-g-8">
+        <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
+    </div>
+    </p-footer>
+</p-dialog>

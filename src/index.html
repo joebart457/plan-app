@@ -6,12 +6,106 @@
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    #title-bar {
+        -webkit-app-region: drag;
+        height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #222425;
+        padding: none;
+        margin: 0px;
+    }
+
+    #title {
+        padding-top: 10px;
+        top: 0;
+        left: 6px;
+        color:white;
+
+    }
+
+    #title-bar-btns {
+        padding-top: 10px;
+        -webkit-app-region: no-drag;
+        height: 40px;
+        top: 0;
+        right: 6px;
+        position: absolute;
+        text-align: center;
+    }
+    .window-cntrl-btn {
+      background-color:#222425;
+      color: white;
+      border: none;
+      font-size: large;
+      width: 20px;
+      padding: 2px;
+    }
+    .window-cntrl-btn:hover {
+      background-color: darkgray;
+    }
+</style>
   <script>
     window.fs = require('fs');
+    window.title = 'Plan Creator';
+    window.localDir = require('electron').remote.app.getAppPath();
     console.log(window.fs);
   </script>
 </head>
 <body>
+  <div id="title-bar">
+    <div id="title">
+
+    </div>
+    <div id="title-bar-btns">
+         <button id="min-btn" class="window-cntrl-btn" type="button"><strong>-</strong></button>
+         <button id="max-btn" class="window-cntrl-btn" type="button">+</button>
+         <button id="close-btn" class="window-cntrl-btn" type="button">x</button>
+    </div>
+  </div>
+<script>
+  (function () {
+      // Retrieve remote BrowserWindow
+      const {BrowserWindow} = require('electron').remote
+
+      function init() {
+        document.getElementById('title').innerHTML = window.title;
+          // Minimize task
+          document.getElementById("min-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              window.minimize();
+          });
+
+          // Maximize window
+          document.getElementById("max-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              if(window.isMaximized()){
+                  window.unmaximize();
+              }else{
+                  window.maximize();
+              }
+          });
+
+          // Close app
+          document.getElementById("close-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              window.close();
+          });
+      };
+
+      document.onreadystatechange =  () => {
+          if (document.readyState == "complete") {
+              init();
+          }
+      };
+  })();
+  </script>
   <app-root></app-root>
 </body>
 </html>

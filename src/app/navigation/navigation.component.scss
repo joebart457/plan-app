@@ -1,7 +1,9 @@
+@import '../../styles/global-styles.scss';
+
 :host::ng-deep {
     .ui-menu {
-        height: 100vh !important;
-        width: 10vw;
+        height: $full-height !important;
+        width: $navbar-width;
         justify-self: left;
     }
 }

@@ -17,7 +17,8 @@ const createWindow = () => {
             },
             width: 800,
             height: 600,
-            icon: './src/favicon.ico'
+            icon: './src/favicon.ico',
+            frame: false
         });
 
         win.loadURL(url.format({

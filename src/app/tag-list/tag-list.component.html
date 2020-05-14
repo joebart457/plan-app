@@ -1,39 +1,71 @@
-<p-panel>
-    <p-header>Tags</p-header>
-    <div class="tags-panel-content">
-        <p-treeTable [value]="tags"
-                class="tag-table">
-            <ng-template pTemplate="caption">
-                <div style="height: 20px;">
-                    <button pButton
-                            type="button"
-                            id="add-btn"
-                            icon="pi pi-plus"
-                            style="height: 20px; align-content: center;"
-                            label="Add"
-                            class="ui-button-success"
-                            (click)="addTag()">
-                    </button>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                <tr>
-                    <td>
-                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                        {{rowData.name}}
-                    </td>
-                    <td>{{rowData.size}}</td>
-                    <td>{{rowData.type}}</td>
-                </tr>
-            </ng-template>
-        </p-treeTable>
-    <app-edit-tag class="tag-edit-panel" [selectedTag]="selectedTag"></app-edit-tag>
+<p-panel id="tagPanel" class="tags-main-panel">
+    <p-header>Tag List</p-header>
+    <div class="tags-panel-content-wrapper">
+        <p-table [value]="tags"
+        class="tag-table"
+        selectionMode="single" 
+        [(selection)]="selectedTag"
+        [scrollable]="true"
+        scrollHeight="80vh">
+        <ng-template pTemplate="caption">
+            <div style="height: 20px;">
+                <button pButton
+                        type="button"
+                        id="delete-btn"
+                        icon="pi pi-trash"
+                        style="height: 20px; align-content: center;"
+                        label="Delete"
+                        class="ui-button-danger"
+                        [disabled]="!selectedTag"
+                        (click)="handleDelete()"></button>
+                <button pButton
+                        type="button"
+                        id="edit-btn"
+                        icon="pi pi-user-edit"
+                        style="height: 20px; align-content: center;"
+                        label="Edit"
+                        class="ui-button-warning"
+                        [disabled]="!selectedTag"
+                        (click)="handleEdit()"></button>
+                <button pButton
+                        type="button"
+                        id="add-btn"
+                        icon="pi pi-plus"
+                        style="height: 20px; align-content: center;"
+                        label="Add"
+                        class="ui-button-success"
+                        (click)="handleAdd()">
+                </button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3em"></th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Objective(s)</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Event Interval</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td style="width: 3em">
+                    <p-tableRadioButton [value]="rowData" [disabled]="showEditTag"></p-tableRadioButton>
+                </td>
+                <td class="table-field-content">{{rowData.name}}</td>
+                <td class="table-field-content">{{rowData.amount}}</td>
+                <td class="table-field-content">
+                    <p class="table-field-content" *ngFor="let objective of rowData.objectives">{{objective.name}}</p>
+                </td>
+                <td class="table-field-content">{{rowData.startDate}}</td>
+                <td class="table-field-content">{{rowData.endDate}}</td>
+                <td class="table-field-content">{{rowData.eventInterval}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
     </div>
 </p-panel>
+<app-add-tag [showDialog]="showAddTag" (add)="onTagAdd()" (hide)="closeAddDialog()"></app-add-tag>
+<app-edit-tag [(tagSelection)]="selectedTag" [showDialog]="showEditTag" (save)="onTagSave()" (hide)="closeEditDialog()"></app-edit-tag>

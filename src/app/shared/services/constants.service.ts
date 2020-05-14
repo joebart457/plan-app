@@ -1,0 +1,41 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ConstantsService {
+
+  public Tags: any = {
+    DateTypes: {
+        list: [
+            {label: 'Occurs Once', value: 'Occurs Once'},
+            {label: 'Occurs Daily', value: 'Occurs Daily'},
+            {label: 'Occurs Weekly', value: 'Occurs Weekly'},
+            {label: 'Occurs Bi-Monthly', value: 'Occurs Bi-Monthly'},
+            {label: 'Occurs Monthly', value: 'Occurs Monthly'},
+            {label: 'Occurs Bi-Annually', value: 'Occurs Bi-Annually'},
+            {label: 'Occurs Annually', value: 'Occurs Annually'},
+        ],
+        labels: {
+            Once: {label: 'Occurs Once', value: 'Occurs Once'},
+            Daily: {label: 'Occurs Daily', value: 'Occurs Daily'},
+            Weekly: {label: 'Occurs Weekly', value: 'Occurs Weekly'},
+            BiMonthly: {label: 'Occurs Bi-Monthly', value: 'Occurs Bi-Monthly'},
+            Monthly: {label: 'Occurs Monthly', value: 'Occurs Monthly'},
+            BiAnnually: {label: 'Occurs Bi-Annually', value: 'Occurs Bi-Annually'},
+            Annually: {label: 'Occurs Annually', value: 'Occurs Annually'},
+        },
+        analysis: {
+            Day: {label: 'Day', value: 'Date'},
+            Month: {label: 'Month', value: 'Month'},
+            FullYear: {label: 'FullYear', value: 'FullYear'},
+        }
+    },
+};
+
+  constructor() { }
+  
+  public getTags() {
+    return this.Tags;
+  }
+}

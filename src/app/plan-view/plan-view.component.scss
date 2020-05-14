@@ -1,8 +1,11 @@
+@import '../../styles/global-styles.scss';
+
 :host::ng-deep {
-    .plans-panel-content {
-        height: 100vh !important;
-        width: 90vw;
-        display: flex;
-        justify-content: center;
+    #planView.tags-main-panel .ui-panel {
+        height: $full-height !important;
+        width: $full-width;
+    }
+    #planView .ui-panel-content-wrapper .ui-panel-content {
+        height: calc(#{$full-height} - #{$panel-titlebar-height});
     }
 }

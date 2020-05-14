@@ -11,10 +11,16 @@ export class PlanListComponent implements OnInit {
 
   @Output() add: EventEmitter<any> = new EventEmitter();
   public plans: Plan[] = [];
+  public selectedPlan: Plan;
   public showAddPlan: boolean = false;
+  public showEditPlan: boolean = false;
   constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
+    this.refreshPlans();
+  }
+
+  refreshPlans(): void {
     this.plans = this.planService.getAvailablePlans();
   }
 
@@ -22,7 +28,24 @@ export class PlanListComponent implements OnInit {
     this.showAddPlan = true;
   }
 
-  handleClose(): void {
+  handleEdit(): void {
+    this.showEditPlan = true;
+  }
+
+  closeAddDialog(): void {
     this.showAddPlan = false;
+  }
+
+  closeEditDialog(): void {
+    this.showEditPlan = false;
+  }
+
+  onAddedPlan(): void {
+    let that = this;
+    setTimeout( function(that: any){that.refreshPlans();}, 1000, that); 
+  }
+
+  onPlanSave(): void {
+    this.planService.savePlan(this.selectedPlan);
   }
 }

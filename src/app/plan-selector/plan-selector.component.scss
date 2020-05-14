@@ -1,0 +1,9 @@
+:host::ng-deep {
+    #planSelector {
+        -webkit-app-region: no-drag;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 999;
+    }
+}

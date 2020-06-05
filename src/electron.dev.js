@@ -26,8 +26,9 @@ const createWindow = () => {
             protocol: 'http:',
             slashes: true
         }));
-
-        win.webContents.openDevTools();
+        
+        win.maximize();
+        // win.webContents.openDevTools();
 
         win.on('closed', () => {
             win = null;

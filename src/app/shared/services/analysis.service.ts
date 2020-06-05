@@ -79,16 +79,18 @@ export class AnalysisService {
           if (!(addedAmount === 0 && filterZeroContributors)){
             const objIndex = results.findIndex(x => x.name === objective.name);
           
-            if (objIndex < -1) {
+            if (objIndex < 0) {
               console.log("creating new result");
               results.push({name: objective.name, goal: objective.goal, result: addedAmount, warn: true, 
-                details: [{name: tag.name, amount: tag.amount, totalAmount: addedAmount, eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)}]}
+                details: [{name: tag.name, amount: tag.amount, totalAmount: addedAmount, multiMode: tag.multiMode, multiModeValue: objective.multiModeValue,
+                  eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)}]}
               );
             } else {
               console.log("adding to objective: ");
               console.log(results[objIndex]);
               results[objIndex].result += addedAmount;
-              results[objIndex].details.push({name: tag.name, amount: tag.amount, totalAmount: addedAmount, eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)});
+              results[objIndex].details.push({name: tag.name, amount: tag.amount, totalAmount: addedAmount,multiMode: tag.multiMode, multiModeValue: objective.multiModeValue,
+                eventInterval: tag.eventInterval, 'recurrent': recurrent, startDate: new Date(tag.startDate), endDate: new Date(tag.endDate)});
             }
           }
          

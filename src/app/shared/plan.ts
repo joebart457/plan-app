@@ -1,10 +1,12 @@
-import { Tag } from './tag';
 import { Objective } from './objective';
+import { Source } from './source';
+import { Link } from './link';
 
 export class Plan {
     name: string = 'My Savings Plan';
     filepath: string = '';
-    tags: Tag[] = [];
+    sources: Source[] = [];
+    links: Link[] = [];
     objectives: Objective[] = [];
     startDate: Date;
     endDate: Date;

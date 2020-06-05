@@ -16,21 +16,23 @@
         </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Tag</th>
-            <th>Tag Base Amount</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Event Interval</th>
-            <th>Total Occurrences</th>
-            <th>Occurrences</th>
-            <th>Amount per Occurrence</th>
-            <th>Total Amount Contributed</th>
+            <th class="table-field-content">Tag</th>
+            <th class="table-field-content">Tag Base Amount</th>
+            <th class="table-field-content">MultiMode Value</th>
+            <th class="table-field-content">Start Date</th>
+            <th class="table-field-content">End Date</th>
+            <th class="table-field-content">Event Interval</th>
+            <th class="table-field-content">Total Occurrences</th>
+            <th class="table-field-content">Occurrences</th>
+            <th class="table-field-content">Amount per Occurrence</th>
+            <th class="table-field-content">Total Amount Contributed</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
         <tr [ngClass]="'result-details-row'">
             <td class="table-field-content">{{rowData.name}}</td>
             <td class="table-field-content">${{rowData.amount.toFixed(2)}}</td>
+            <td class="table-field-content">{{getMultiModeString(rowData)}}</td>
             <td class="table-field-content">{{rowData.startDate}}</td>
             <td class="table-field-content">{{rowData.endDate}}</td>
             <td class="table-field-content">{{rowData.eventInterval}}</td>
@@ -40,7 +42,7 @@
                     <p *ngFor="let d of rowData.recurrent" class="table-field-content">{{d.toDateString()}}</p>
                 </div>
             </td>
-            <td class="table-field-content">{{getAmountPerOccurrence(rowData).toFixed(2)}}</td>
+            <td class="table-field-content">${{getAmountPerOccurrence(rowData).toFixed(2)}}</td>
             <td class="table-field-content">${{rowData.totalAmount.toFixed(2)}}</td>
         </tr>
     </ng-template>

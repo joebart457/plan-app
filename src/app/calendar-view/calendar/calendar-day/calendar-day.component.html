@@ -1,0 +1,15 @@
+<div *ngIf="!date"></div>
+<div *ngIf="date" style="text-align: center; width: 30px; height: 30px; overflow: hidden;" (click)="op.show($event)">
+    {{date.getDate()}}
+    <tr style="display: flex; flex-wrap: wrap;">
+        <td *ngFor="let e of events"><div [style]="getIndicatorStyles(e)"></div></td>
+    </tr>
+</div>
+<p-overlayPanel #op>
+    <ng-template pTemplate>
+        <tr *ngFor="let e of events">
+            <td><div [ngStyle]="getLegendStyles(e)"></div></td>
+            <td> : {{e.title}}</td>
+        </tr>
+    </ng-template>
+</p-overlayPanel>

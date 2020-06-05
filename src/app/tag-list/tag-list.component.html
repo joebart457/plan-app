@@ -59,7 +59,10 @@
                 <td class="table-field-content">${{rowData.amount.toFixed(2)}}</td>
                 <td class="table-field-content">{{rowData.multiMode}}</td>
                 <td class="table-field-content">
-                    <p class="table-field-content" *ngFor="let objective of rowData.objectives">{{getObjectiveString(rowData, objective)}}</p>
+                    <p class="table-field-content" 
+                    *ngFor="let objective of rowData.objectives" 
+                    [pTooltip]="getObjectiveString(rowData, objective)"
+                    tooltipPosition="left">{{getObjectiveString(rowData, objective)}}</p>
                 </td>
                 <td class="table-field-content">{{rowData.startDate}}</td>
                 <td class="table-field-content">{{rowData.endDate}}</td>

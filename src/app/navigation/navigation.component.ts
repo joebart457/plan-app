@@ -18,8 +18,11 @@ export class NavigationComponent implements OnInit {
 
     this.fullItems.push({label:'Plans', icon: 'pi pi-list', routerLink: ['/plan']});
     this.fullItems.push({label:'Tags', icon: 'pi pi-tags', routerLink: ['/tag-list']});
-    this.fullItems.push({label:'Goals', icon: 'pi pi-compass', routerLink: ['/objective']});
+    this.fullItems.push({label:'Links', icon: 'pi pi-share-alt', routerLink: ['/tag-list']});
+    this.fullItems.push({label:'Goals', icon: 'pi pi-map-marker', routerLink: ['/objective']});
     this.fullItems.push({label:'Test', icon: 'pi pi-chart-bar', routerLink: ['/analysis']});
+    this.fullItems.push({label:'View', icon:'pi pi-calendar', routerLink:['/calendar']});
+    this.fullItems.push({label:'Settings', icon: 'pi pi-cog', routerLink: ['/settings']});
   }
 
   getMenuItems(): MenuItem[] {

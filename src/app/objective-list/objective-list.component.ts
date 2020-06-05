@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Objective } from '../shared/objective';
 import { SessionService } from '../shared/services/session.service';
 import { Plan } from '../shared/plan';
+import { WindowHelperService } from '../shared/services/window-helper.service';
 
 @Component({
   selector: 'app-objective-list',
@@ -14,9 +15,11 @@ export class ObjectiveListComponent implements OnInit {
   public showAddDialog: boolean = false;
   public objectiveName: string = '';
   public objectiveGoal: number = 0;
+  public selectedObjective: Objective;
   public errorMessage: string = '';
   public plan: Plan;
-  constructor(private sessionService: SessionService) { }
+  public color: string = '';
+  constructor(private sessionService: SessionService, private windowHelperService: WindowHelperService) { }
 
   ngOnInit(): void {
     this.plan = this.sessionService.getCurrentPlan();
@@ -28,10 +31,12 @@ export class ObjectiveListComponent implements OnInit {
   }
   showDialog(): void {
     this.showAddDialog = true;
+    this.windowHelperService.dialogShown = true;
   }
 
   hideDialog(): void {
     this.showAddDialog = false;
+    this.windowHelperService.dialogShown = false;
   }
 
   inputValid(): boolean {
@@ -51,5 +56,12 @@ export class ObjectiveListComponent implements OnInit {
     this.sessionService.addObjective(new Objective(this.objectiveName, this.objectiveGoal));
     this.refreshObjectivesList();
     this.hideDialog();
+  }
+
+  handleDelete(): void {
+    if (this.selectedObjective) {
+      this.sessionService.deleteObjective(this.selectedObjective);
+      this.refreshObjectivesList();
+    }
   }
 }

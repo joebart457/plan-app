@@ -1,0 +1,20 @@
+<div style="border: 1px solid black; border-radius: 3px; display: inline-block;">
+    <table cellSpacing=0 cellPadding=2>
+        <caption class="table-caption dark">
+            {{getMonthName()}}
+        </caption>
+        <th class="table-header-even dark">Sun</th>
+        <th class="table-header-odd dark">Mon</th>
+        <th class="table-header-even dark">Tue</th>
+        <th class="table-header-odd dark">Wed</th>
+        <th class="table-header-even dark">Thu</th>
+        <th class="table-header-odd dark">Fri</th>
+        <th class="table-header-even dark">Sat</th>
+        <tr *ngFor="let week of monthList">
+            <td *ngFor="let day of week">
+                <app-calendar-day [date]="day" [events]="getEvents(day)"></app-calendar-day>
+            </td>    
+        </tr>
+    </table>
+</div>
+

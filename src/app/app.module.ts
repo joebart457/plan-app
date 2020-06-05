@@ -17,6 +17,9 @@ import {SpinnerModule} from 'primeng/spinner';
 import {DropdownModule} from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TooltipModule } from 'primeng/tooltip';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {ColorPickerModule} from 'primeng/colorpicker';
 
 import { AppComponent } from './app.component';
 import { TerminalComponent } from './terminal/terminal.component';
@@ -36,6 +39,12 @@ import { PlanSelectorComponent } from './plan-selector/plan-selector.component';
 import { AddTagComponent } from './tag-list/add-tag/add-tag.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AnalysisDetailsComponent } from './analysis/analysis-details/analysis-details.component';
+import { SettingsComponent } from './settings/settings.component';
+import { CalendarViewComponent } from './calendar-view/calendar-view.component';
+import { CalendarComponent } from './calendar-view/calendar/calendar.component';
+import { CalendarDayComponent } from './calendar-view/calendar/calendar-day/calendar-day.component';
+import { CalendarMonthComponent } from './calendar-view/calendar/calendar-month/calendar-month.component';
+import { SourceListComponent } from './source-list/source-list.component';
 
 
 @NgModule({
@@ -54,7 +63,13 @@ import { AnalysisDetailsComponent } from './analysis/analysis-details/analysis-d
     PlanSelectorComponent,
     AddTagComponent,
     LandingPageComponent,
-    AnalysisDetailsComponent
+    AnalysisDetailsComponent,
+    SettingsComponent,
+    CalendarViewComponent,
+    CalendarComponent,
+    CalendarDayComponent,
+    CalendarMonthComponent,
+    SourceListComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +89,9 @@ import { AnalysisDetailsComponent } from './analysis/analysis-details/analysis-d
     DropdownModule,
     RadioButtonModule,
     ScrollPanelModule,
+    TooltipModule,
+    OverlayPanelModule,
+    ColorPickerModule,
   ],
   providers: [
     TagService,

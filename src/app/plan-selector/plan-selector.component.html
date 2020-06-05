@@ -1,7 +1,7 @@
 <p-dropdown id="planSelector"
-            *ngIf="availablePlans.length"
             [options]="availablePlans" 
             [(ngModel)]="selected"
             placeholder="Select Plan"
             (onChange)="onSelectionChange()"
-            (click)="refreshOptions()"></p-dropdown>
+            (click)="refreshOptions()"
+            [disabled]="isDialogUp()"></p-dropdown>

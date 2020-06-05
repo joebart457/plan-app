@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PlanService } from 'src/app/shared/services/plan.service';
 import { Plan } from 'src/app/shared/plan';
+import { WindowHelperService } from 'src/app/shared/services/window-helper.service';
 
 @Component({
   selector: 'app-plan-list',
@@ -14,7 +15,7 @@ export class PlanListComponent implements OnInit {
   public selectedPlan: Plan;
   public showAddPlan: boolean = false;
   public showEditPlan: boolean = false;
-  constructor(private planService: PlanService) { }
+  constructor(private planService: PlanService, private windowHelperService: WindowHelperService) { }
 
   ngOnInit(): void {
     this.refreshPlans();
@@ -26,18 +27,22 @@ export class PlanListComponent implements OnInit {
 
   handleAdd(): void {
     this.showAddPlan = true;
+    this.windowHelperService.dialogShown = true;
   }
 
   handleEdit(): void {
     this.showEditPlan = true;
+    this.windowHelperService.dialogShown = true;
   }
 
   closeAddDialog(): void {
     this.showAddPlan = false;
+    this.windowHelperService.dialogShown = false;
   }
 
   closeEditDialog(): void {
     this.showEditPlan = false;
+    this.windowHelperService.dialogShown = false;
   }
 
   onAddedPlan(): void {

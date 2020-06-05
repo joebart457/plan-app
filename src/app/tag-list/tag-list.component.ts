@@ -5,6 +5,7 @@ import { Tag } from '../shared/tag';
 import { SessionService } from '../shared/services/session.service';
 import { Plan } from '../shared/plan';
 import { Objective } from '../shared/objective';
+import { WindowHelperService } from '../shared/services/window-helper.service';
 
 @Component({
   selector: 'app-tag-list',
@@ -18,7 +19,7 @@ export class TagListComponent implements OnInit {
   public plan: Plan;
   public tags: Tag[] = [];
   public selectedTag: Tag;
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService, private windowHelperService: WindowHelperService) { }
 
   ngOnInit(): void {
     this.refreshTags();
@@ -32,10 +33,12 @@ export class TagListComponent implements OnInit {
 
   handleAdd(): void {
     this.showAddTag = true;
+    this.windowHelperService.dialogShown = true;
   }
 
   handleEdit(): void {
     this.showEditTag = true;
+    this.windowHelperService.dialogShown = true;
   }
 
   handleDelete(): void {
@@ -46,10 +49,12 @@ export class TagListComponent implements OnInit {
 
   closeAddDialog(): void {
     this.showAddTag = false;
+    this.windowHelperService.dialogShown = false;
   }
 
   closeEditDialog(): void {
     this.showEditTag = false;
+    this.windowHelperService.dialogShown = false;
   }
 
   onTagAdd() {

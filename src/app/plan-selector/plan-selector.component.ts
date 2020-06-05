@@ -3,6 +3,7 @@ import {SelectItem} from 'primeng/api';
 import { PlanService } from '../shared/services/plan.service';
 import { Plan } from '../shared/plan';
 import { SessionService } from '../shared/services/session.service';
+import { WindowHelperService } from '../shared/services/window-helper.service';
 
 @Component({
   selector: 'app-plan-selector',
@@ -13,7 +14,7 @@ export class PlanSelectorComponent implements OnInit {
 
   public availablePlans: SelectItem[] = [];
   public selected: Plan;
-  constructor(private planService: PlanService, private sessionService: SessionService) { }
+  constructor(private planService: PlanService, private sessionService: SessionService, private windowHelperService: WindowHelperService) { }
 
   ngOnInit(): void {
     this.refreshOptions();
@@ -27,5 +28,9 @@ export class PlanSelectorComponent implements OnInit {
 
   refreshOptions(): void {
     this.availablePlans = this.planService.getAvailablePlansAsSelectItem();
+  }
+
+  isDialogUp(): boolean {
+    return this.windowHelperService.dialogShown;
   }
 }

@@ -8,17 +8,26 @@
     #objectivesPanel .ui-panel-content-wrapper .ui-panel-content {
         height: calc(#{$full-height} - #{$panel-titlebar-height});
     }
+
+    #add-btn .ui-button-text {
+      transform: translate(0px, -6px);
+  }
+
+  #delete-btn .ui-button-text {
+    transform: translate(0px, -6px);
+  }
 }
 
 #add-btn {
-    float: right;
+  position: absolute;
+  right: 10px;
 }
 
-:host::ng-deep {
-    #add-btn .ui-button-text {
-        transform: translate(0px, -6px);
-    }
+#delete-btn {
+  position: absolute;
+  right: 100px;
 }
+
 
 .add-dialog {
     overflow: visible;
@@ -37,10 +46,10 @@ $gray: #9b9b9b;
 .add-dialog-content {
   position: relative;
   padding: 15px 0 0;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 10px;
-  width: 20vw;
-  height: 16vh;
+  width: $objective-dialog-width;
+  height: $objective-dialog-height;
 }
 
 .objective-name {
@@ -145,6 +154,59 @@ $gray: #9b9b9b;
   }
   /* reset input */
   .objective-goal {
+    &:required,&:invalid { box-shadow:none; }
+  }
+
+
+  .objective-color {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0px;
+    background: transparent;
+    transition: border-color 0.2s;
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ .objective-color-label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 150px;
+    }
+  }
+  
+  .objective-color-label {
+    position: absolute;
+    top: 130px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+  
+  .objective-color:focus {
+    ~ .objective-color-label {
+        position: absolute;
+        top: 130px;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $primary;
+        font-weight:700;    
+    }
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary,$secondary);
+    border-image-slice: 1;
+  }
+  /* reset input */
+  .objective-color {
     &:required,&:invalid { box-shadow:none; }
   }
   

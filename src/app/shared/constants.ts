@@ -26,4 +26,17 @@ export class Constants {
             }
         },
     };
+
+    public Links: any = {
+        list: [
+            {label: 'Use Source Date', value: 'Source'},
+            {label: 'Use Goal Date', value: 'Objective'},
+            {label: 'Custom', value: 'Custom'},
+        ],
+        labels: {
+            Source: {label: 'Use Source Date', value: 'Source'},
+            Objective: {label: 'Use Goal Date', value: 'Objective'},
+            Custom: {label: 'Custom', value: 'Custom'},
+        }
+    }
 }

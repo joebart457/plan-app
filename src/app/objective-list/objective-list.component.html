@@ -9,10 +9,22 @@
     </p-header>
     <p-table [value]="objectives"
         class="objective-table"
+        selectionMode="single"
+        [(selection)]="selectedObjective"
         [scrollable]="true"
         scrollHeight="80vh">
         <ng-template pTemplate="caption">
             <div style="height: 20px;">
+                <button pButton
+                        type="button"
+                        id="delete-btn"
+                        icon="pi pi-trash"
+                        style="height: 20px; align-content: center;"
+                        label="Delete"
+                        class="ui-button-danger"
+                        [disabled]="!selectedObjective"
+                        (click)="handleDelete()">
+                </button>
                 <button pButton
                         type="button"
                         id="add-btn"
@@ -26,12 +38,16 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
+                <th style="width: 3em"></th>
                 <th class="table-field-content">Name</th>
                 <th class="table-field-content">Goal</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
             <tr>
+                <td style="width: 3em">
+                    <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+                </td>
                 <td class="table-field-content">{{rowData.name}}</td>
                 <td class="table-field-content">${{rowData.goal.toFixed(2)}}</td>
             </tr>
@@ -49,6 +65,16 @@
         <div class="dialog-content-spacer"></div>
         <input type="number" class="objective-goal" placeholder="Goal" name="goal" id='goal' [(ngModel)]="objectiveGoal"/>
         <label for="goal" class="objective-goal-label">Goal</label>
+        <div class="dialog-content-spacer"></div>
+        <tr>
+            <td class="table-field-content">
+                <input class="objective-color" name="color" id='color' placeholder="Color" [(ngModel)]="color"/>
+                <label for="color" class="objective-color-label">Color</label>
+            </td>
+            <td class="table-field-content">
+                <p-colorPicker [(ngModel)]="color" appendTo="body" [style]="{overflow: 'hidden'}"></p-colorPicker>
+            </td>
+        </tr>
       </div>
     <p-footer>
         <div class="ui-g">
@@ -56,7 +82,7 @@
                 <button pButton
                     [disabled]="!inputValid()"
                     type="button"
-                    label="Create"
+                    label="Save"
                     class="ui-button-success"
                     (click)="addObjective()"></button>
             </div>
@@ -68,7 +94,7 @@
                     (click)="hideDialog()"></button>
             </div>
         </div>
-        <div class="ui-g ui-g-12">
+        <div class="ui-g ui-g-8">
             <p *ngIf="!inputValid()" class="invalid-input-label">{{ errorMessage }}</p>
         </div>
     </p-footer>

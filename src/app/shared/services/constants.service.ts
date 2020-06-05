@@ -45,11 +45,21 @@ export class ConstantsService {
         SetValue: {label: 'Set Value for Each', value: 'Set Value for Each'},
       },
     }
-};
+  };
+
+  public Links: any = {
+    list: [
+        {label: 'Use Source Date', value: 'Source'},
+        {label: 'Use Goal Date', value: 'Objective'},
+        {label: 'Custom', value: 'Custom'},
+    ],
+    labels: {
+        Source: {label: 'Use Source Date', value: 'Source'},
+        Objective: {label: 'Use Goal Date', value: 'Objective'},
+        Custom: {label: 'Custom', value: 'Custom'},
+    }
+  };
 
   constructor() { }
   
-  public getTags() {
-    return this.Tags;
-  }
 }
